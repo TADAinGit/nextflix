@@ -1,3 +1,5 @@
 export async function GET(request: Request) {
-  return new Response('Hello, Next.js!')
+  const test = process.env.TMDB_API;
+  console.log(test);
+  return new Response("Hello, Next.js!");
 }
