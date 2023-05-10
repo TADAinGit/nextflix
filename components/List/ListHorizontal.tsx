@@ -9,6 +9,7 @@ import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 // import SkeletonCard from "../Skeleton/SkeletonCard";
 import { MediaType } from "@/configs/tmdb/tmdb-api";
 import Card from "../Card/MovieCard";
+import CardSkeleton from "../Skeleton/MovieCard.skeleton";
 
 type Props = {
   className?: string;
@@ -58,17 +59,17 @@ const ListHorizontal = memo((props: Props) => {
       loop
       className={classNames(props.className)}
     >
-      {/* {props.skeleton &&
+      {props.skeleton &&
         new Array(10).fill(0).map((_, index) => {
           return (
             <SwiperSlide
               key={index.toString() + "list-horizontal"}
               className="w-44 pr-4 self-stretch"
             >
-              <SkeletonCard size="normal" />
+              <CardSkeleton size="normal" />
             </SwiperSlide>
           );
-        })} */}
+        })}
 
       {!props.skeleton &&
         props.data.map((movie, index) => {

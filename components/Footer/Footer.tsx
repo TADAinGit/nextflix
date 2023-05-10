@@ -81,12 +81,11 @@ const Footer = (props: Props) => {
           modules={[Autoplay, Pagination, Navigation]}
           className="swiper-timing"
         >
-          {[...Array(20)].map((_, i) => (
+          {[...Array(11)].map((_, i) => (
             <SwiperSlide key={i}>
-              <div className="logo text-3xl font-bold text-white bg-black">
-                <span className="">NEXT</span>
-                <span className="text-red-600">Flix</span>
-              </div>{" "}
+              <div className="bg-black">
+                <Logo size="medium" />
+              </div>
             </SwiperSlide>
           ))}
         </Swiper>

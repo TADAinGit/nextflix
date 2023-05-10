@@ -5,14 +5,18 @@ type Props = {};
 
 const SkeletonHeroSlice = (props: Props) => {
   return (
-    <Skeleton
-      baseColor="#202020"
-      highlightColor="#444"
-      className={`md:h-[36rem] bg-no-repeat bg-cover relative bg-center sm:h-[33rem] 
-      before:content-[''] before:absolute before:w-full 
-      before:h-full before:top-0 before:left-0 before:z-[2]
-      before:bg-gradient-to-t from-black-2 via-black-2/20 to-black/80 w-screen h-[26rem] skeleton`}
-    />
+    <div className="md:h-[48rem] h-[20rem] animate-pulse bg-gray-200 overflow-hidden">
+      <div className="bg-gray-300 h-2/3"></div>
+      <div className="flex flex-col gap-3 p-4 h-1/3 justify-between">
+        <div className="h-6 bg-gray-300"></div>
+        <div className="h-6 bg-gray-300"></div>
+        <div className="h-6 bg-gray-300"></div>
+        <div className="flex gap-2">
+          <div className="h-8 aspect-square bg-gray-300 rounded-full"></div>
+          <div className="h-8 aspect-square bg-gray-300 rounded-full"></div>
+        </div>
+      </div>
+    </div>
   );
 };
 

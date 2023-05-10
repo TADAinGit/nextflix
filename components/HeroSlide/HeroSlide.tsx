@@ -60,6 +60,11 @@ const HeroSlide = ({}: Props) => {
         // onSlideChange={() => console.log("slide change")}
         // onSwiper={(swiper) => console.log(swiper)}
       >
+        {trendingQuery.isLoading && (
+          <SwiperSlide>
+            <SkeletonHeroSlice />
+          </SwiperSlide>
+        )}
         {trendingQuery?.data?.data.results.slice(0, 8).map((movie) => {
           let genres: Genre[] | undefined = [];
           if (movie.media_type === "movie") {

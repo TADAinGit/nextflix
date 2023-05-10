@@ -69,11 +69,41 @@ const MovieDetails = ({ mediaType = "movie" }: Props) => {
     <main className="min-h-screen">
       {data && (
         <div
-          className="movies-detail h-96"
+          className={`movies-detail bg-no-repeat bg-cover relative bg-center
+          pt-24 pb-4 before:content-[""] before:absolute before:left-0 before:bottom-0 before:w-full before:h-full
+          before:bg-gradient-to-t before:from-black-2  before:to-black-2/70
+          `}
           style={{
             backgroundImage: `url(${originalImage(data.data.backdrop_path)})`,
           }}
-        ></div>
+        >
+          <div>Hello</div>
+          <div>Hello</div>
+          <div>Hello</div>
+          <div>Hello</div>
+          <div>Hello</div>
+          <div>Hello</div>
+          <div>Hello</div>
+          <div>Hello</div>
+          <div>Hello</div>
+          <div>Hello</div>
+          <div>Hello</div>
+          <div>Hello</div>
+          <div>Hello</div>
+          <div>Hello</div>
+          <div>Hello</div>
+          <div>Hello</div>
+          <div>Hello</div>
+          <div>Hello</div>
+          <div>Hello</div>
+          <div>Hello</div>
+          <div>Hello</div>
+          <div>Hello</div>
+          <div>Hello</div>
+          <div>Hello</div>
+          <div>Hello</div>
+          <div>Hello</div>
+        </div>
       )}
     </main>
   );

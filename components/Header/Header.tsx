@@ -46,7 +46,7 @@ const Header = (props: Props) => {
 
       setHeaderColor(
         document.documentElement.scrollTop + 100 <=
-          (hero as HTMLElement)?.offsetHeight
+          (hero as HTMLElement)?.offsetHeight || 500
           ? "bg-gradient-to-t from-black/5 to-black/100"
           : /*"bg-gradient-to-t from-black/5 from-20% via-black/60 via-50% to-black/100"*/ "bg-black"
       );
@@ -60,15 +60,13 @@ const Header = (props: Props) => {
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setOpenMenu(false); // Nếu click ra ngoài thì ẩn menu
+        setOpenMenu(false);
       }
     };
-
-    // Thêm sự kiện "click" vào cả trang web
     document.addEventListener("click", handleOutsideClick);
 
     return () => {
-      document.removeEventListener("click", handleOutsideClick); // Xóa sự kiện "click" khi component unmount
+      document.removeEventListener("click", handleOutsideClick);
     };
   }, [menuRef]);
 

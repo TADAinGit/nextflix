@@ -35,14 +35,14 @@ const HorizontalTrendingMovies = (props: Props) => {
           data={trendingQuery.data?.data.results.slice(5)}
         />
       )}
-      {/* {trendingQuery.isLoading && (
+      {trendingQuery.isLoading && (
         <ListHorizontal
           mediaType="all"
           className="pb-8 pt-6"
           data={[]}
           skeleton
         />
-      )} */}
+      )}
     </section>
   );
 };

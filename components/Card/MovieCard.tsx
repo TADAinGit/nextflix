@@ -62,20 +62,13 @@ const Card = ({ data, mediaType, size = "large" }: Props) => {
             "h-[280px]": size === "large",
           })}
         >
-          {/* <LazyLoadImage
-            wrapperClassName="w-full h-full block"
-            effect="blur"
-            loading="lazy"
-            className="w-full h-full block object-cover"
-            src={originalImage(data.poster_path)}
-            alt={data.poster_path}
-          /> */}
           <Image
             src={originalImage(data.poster_path)}
             alt={data.poster_path}
             width={200}
             height={240}
-            // placeholder="blur"
+            placeholder="blur"
+            blurDataURL="/img/placeholder.jpg"
             className="w-full h-full block object-cover"
           />
           <div className="absolute bottom-0  py-3 left-0 w-full px-3 z-[6] text-white/80">
