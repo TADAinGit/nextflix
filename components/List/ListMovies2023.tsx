@@ -6,6 +6,7 @@ import { useQuery } from "react-query";
 import Link from "next/link";
 import { Movie } from "@/types/movie";
 import Card from "../Card/MovieCard";
+import CardSkeleton from "../Skeleton/MovieCard.skeleton";
 
 type Props = {};
 
@@ -34,6 +35,14 @@ const ListMovies2023 = (props: Props) => {
             <Card data={movie} size="normal" mediaType={"movie"} />
           </div>
         ))}
+        {latestMovieQuery.isLoading &&
+          Array(10)
+            .fill(0)
+            .map((_, index) => (
+              <div key={index} className="pr-4 self-stretch">
+                <CardSkeleton size="normal" />
+              </div>
+            ))}
       </div>
     </section>
   );

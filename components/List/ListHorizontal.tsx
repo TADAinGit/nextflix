@@ -60,7 +60,7 @@ const ListHorizontal = memo((props: Props) => {
       className={classNames(props.className)}
     >
       {props.skeleton &&
-        new Array(10).fill(0).map((_, index) => {
+        new Array(15).fill(0).map((_, index) => {
           return (
             <SwiperSlide
               key={index.toString() + "list-horizontal"}
@@ -72,7 +72,7 @@ const ListHorizontal = memo((props: Props) => {
         })}
 
       {!props.skeleton &&
-        props.data.map((movie, index) => {
+        props.data.map((movie, _) => {
           if (!movie.poster_path) return;
           return (
             <SwiperSlide

@@ -15,7 +15,7 @@ const HorizontalTrendingTvSeries = (props: Props) => {
 
   return (
     <section className="pb-10 px-10">
-      <div className="group flex items-center gap-x-3">
+      <div className="group inline-flex items-center gap-x-3">
         <h2
           className={`font-semibold text-white/80 py-1 text-2xl relative 
         after:content-[""] after:absolute after:bottom-0 after:left-0 after:w-16 after:h-[1px] after:bg-white/40`}
@@ -32,7 +32,7 @@ const HorizontalTrendingTvSeries = (props: Props) => {
         <ListHorizontal
           mediaType="all"
           className="pb-8 pt-6"
-          data={trendingQuery.data?.data.results.slice(5)}
+          data={trendingQuery.data?.data.results.slice(0, 10)}
         />
       )}
       {trendingQuery.isLoading && (

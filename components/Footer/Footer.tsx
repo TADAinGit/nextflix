@@ -76,6 +76,7 @@ const Footer = (props: Props) => {
             delay: 0,
             disableOnInteraction: false,
           }}
+          allowTouchMove={false}
           speed={4000}
           loop
           modules={[Autoplay, Pagination, Navigation]}
@@ -84,7 +85,7 @@ const Footer = (props: Props) => {
           {[...Array(11)].map((_, i) => (
             <SwiperSlide key={i}>
               <div className="bg-black">
-                <Logo size="medium" />
+                <Logo allowNavigate={false} size="medium" />
               </div>
             </SwiperSlide>
           ))}
