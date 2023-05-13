@@ -13,6 +13,7 @@ import { AiFillStar } from "react-icons/ai";
 import { BsClockHistory } from "react-icons/bs";
 import { SlArrowRight } from "react-icons/sl";
 import { useQuery } from "@tanstack/react-query";
+import ReviewList from "@/components/Review/ReviewList";
 
 type Props = {
   mediaType: TmdbMediaType;
@@ -38,13 +39,6 @@ const MovieDetails = ({ mediaType = "movie" }: Props) => {
     queryKey: ["cast", mediaType, id],
     queryFn: () =>
       tmdbApi.getCast<{ cast: Cast[]; crew: Crew[] }>(mediaType, +id),
-    enabled: id !== undefined,
-  });
-
-  const recommendsQuery = useQuery({
-    queryKey: ["recommends", mediaType, id],
-    queryFn: () =>
-      tmdbApi.getRecommendations<Movie | TV | TrendingVideo>(mediaType, +id),
     enabled: id !== undefined,
   });
 
@@ -215,12 +209,12 @@ const MovieDetails = ({ mediaType = "movie" }: Props) => {
             </div>
           </div>
 
-          <div>
-            <HorizontalRecommendMovies
-              media-type={mediaType}
-              movie-id={data.data.id}
-            />
-          </div>
+          <ReviewList media-type={mediaType} movie-id={data.data.id} />
+
+          <HorizontalRecommendMovies
+            media-type={mediaType}
+            movie-id={data.data.id}
+          />
         </div>
       )}
     </main>

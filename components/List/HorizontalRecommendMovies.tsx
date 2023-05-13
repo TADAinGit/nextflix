@@ -1,7 +1,8 @@
+"use client";
 import tmdbApi from "@/configs/tmdb/tmdb-api";
 import { Movie } from "@/types/movie";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import ListHorizontal from "./ListHorizontal";
 
@@ -23,6 +24,12 @@ const HorizontalRecommendMovies = (props: Props) => {
       ),
     enabled: props["movie-id"] !== undefined,
   });
+
+  useEffect(() => {
+    if (recommendQuery.data) {
+      console.log(recommendQuery.data);
+    }
+  }, [recommendQuery]);
 
   return (
     <section className="pb-10 px-10">
