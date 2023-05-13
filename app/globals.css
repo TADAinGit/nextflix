@@ -25,6 +25,24 @@ body {
 }
 
 @layer utilities {
+  body::-webkit-scrollbar {
+    width: 6px;
+    height: 15px;
+  }
+
+  body::-webkit-scrollbar-track {
+    border-radius: 100vh;
+    background: transparent;
+  }
+
+  body::-webkit-scrollbar-thumb {
+    background-color: #db1f1faf;
+  }
+
+  body::-webkit-scrollbar-thumb:hover {
+    background-color: #db1f1f;
+  }
+
   .search-panel::-webkit-scrollbar {
     width: 10px;
     height: 15px;
