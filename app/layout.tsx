@@ -1,6 +1,6 @@
 import Header from "@/components/Header/Header";
 import "./globals.css";
-import { useQuery, QueryClientProvider } from "react-query";
+// import { useQuery, QueryClientProvider } from "react-query";
 import Footer from "@/components/Footer/Footer";
 import MainProvider from "@/provider/MainProvider";
 

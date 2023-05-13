@@ -12,7 +12,7 @@ import React, { useEffect, useState } from "react";
 import { AiFillStar } from "react-icons/ai";
 import { BsClockHistory } from "react-icons/bs";
 import { SlArrowRight } from "react-icons/sl";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
 type Props = {
   mediaType: TmdbMediaType;
@@ -27,11 +27,12 @@ const MovieDetails = ({ mediaType = "movie" }: Props) => {
   const { id } = useParams();
   // const location = useLocation();
 
-  const { data, status, error, isFetching, isFetched } = useQuery({
-    queryKey: ["detail", mediaType, id],
-    queryFn: () => tmdbApi.getDetail<DetailMovie | DetailTV>(mediaType, +id),
-    enabled: id !== undefined,
-  });
+  const { data, status, error, isFetching, isFetched, isInitialLoading } =
+    useQuery({
+      queryKey: ["detail", mediaType, id],
+      queryFn: () => tmdbApi.getDetail<DetailMovie | DetailTV>(mediaType, +id),
+      enabled: id !== undefined,
+    });
 
   const queryCast = useQuery({
     queryKey: ["cast", mediaType, id],
@@ -73,6 +74,61 @@ const MovieDetails = ({ mediaType = "movie" }: Props) => {
 
   return (
     <main className="min-h-screen">
+      {(isFetching || isInitialLoading) && (
+        <div
+          className={`movies-detail md:h-[40rem] bg-no-repeat bg-cover relative bg-center
+          md:py-12 py-8 px-5
+          before:content-[''] before:absolute before:w-full 
+          before:h-full before:top-0 before:left-0 before:z-[2]
+          before:bg-gradient-to-t from-black to-black/60`}
+          style={{
+            backgroundImage: `url("/img/placeholder.jpg")`,
+          }}
+        >
+          <div className="h-full relative z-[3] flex flex-col md:flex-row gap-8 md:gap-16 py-5 items-center">
+            <div
+              className="w-[12rem] md:w-[15rem] h-[12rem] md:h-[20rem] bg-gray-300 rounded-xl animate-pulse bg-cover bg-center"
+              style={{ backgroundImage: `url("/img/placeholder.jpg")` }}
+            ></div>
+            <div className="detail-content text-white md:flex-1 space-y-5 items-center justify-center">
+              <div className="name text-white text-4xl tracking-widest font-extrabold animate-pulse w-64"></div>
+              <div className="info flex items-center gap-2 md:gap-4 text-sm">
+                <span className="tracking-widest bg-gray-300 rounded-sm h-5 w-12 animate-pulse"></span>
+                <span className="flex items-center gap-2">
+                  <BsClockHistory className="text-xl" />
+                  <span className="bg-gray-300 rounded-sm h-5 w-12 animate-pulse"></span>
+                </span>
+                <span className="flex items-center gap-2">
+                  <AiFillStar className="text-xl" />
+                  <span className="bg-gray-300 rounded-sm h-5 w-12 animate-pulse"></span>
+                </span>
+              </div>
+              <div className="flex items-center gap-4 flex-wrap">
+                <div className="genre-items bg-red-500 rounded-3xl py-1 px-3 text-center cursor-pointer hover:scale-110 duration-300 animate-pulse">
+                  <span className="font-semibold text-transparent">genre</span>
+                </div>
+                <div className="genre-items bg-red-500 rounded-3xl py-1 px-3 text-center cursor-pointer hover:scale-110 duration-300 animate-pulse">
+                  <span className="font-semibold text-transparent">genre</span>
+                </div>
+              </div>
+              <div className="flex items-center gap-x-8 md:gap-y-4 gap-y-2 flex-wrap">
+                {Array(3)
+                  .fill(0)
+                  .map((_, i) => (
+                    <div
+                      key={i}
+                      className="w-10 h-10 bg-gray-300 rounded-full bg-cover bg-center object-cover animate-pulse cursor-pointer"
+                      style={{
+                        backgroundImage: `url("/img/placeholder.jpg")`,
+                      }}
+                    />
+                  ))}
+              </div>
+              <div className="text-white/80 text-base lg:w-[80%] animate-pulse"></div>
+            </div>
+          </div>
+        </div>
+      )}
       {data && (
         <div>
           <div
@@ -158,8 +214,12 @@ const MovieDetails = ({ mediaType = "movie" }: Props) => {
               </div>
             </div>
           </div>
+
           <div>
-            <HorizontalRecommendMovies movie-id={data.data.id} />
+            <HorizontalRecommendMovies
+              media-type={mediaType}
+              movie-id={data.data.id}
+            />
           </div>
         </div>
       )}
