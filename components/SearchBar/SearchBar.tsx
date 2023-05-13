@@ -2,6 +2,7 @@
 import { originalImage } from "@/configs/tmdb/image-path";
 import tmdbApi from "@/configs/tmdb/tmdb-api";
 import useDebounce from "@/hooks/useDebounce";
+import { urlMap } from "@/types/common";
 import { Movie, TV } from "@/types/movie";
 import Image from "next/image";
 import Link from "next/link";
@@ -16,7 +17,7 @@ import React, {
 import { IoSearch } from "react-icons/io5";
 import { MdClear } from "react-icons/md";
 import { TbMoodSad } from "react-icons/tb";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
 type Props = {};
 
@@ -28,7 +29,7 @@ const SearchBar = (props: Props) => {
 
   const queryParams = useDebounce(query, 1200);
 
-  const { data, isLoading, isError, isFetched } = useQuery(
+  const { data, isInitialLoading, isError, isFetched } = useQuery(
     ["search", queryParams],
     () => tmdbApi.search(media, queryParams),
     {
@@ -49,7 +50,7 @@ const SearchBar = (props: Props) => {
     }
   }, [isError]);
 
-  // const { data, error, isLoading, isFetching, isFetched } = useQuery({
+  // const { data, error, isInitialLoading, isFetching, isFetched } = useQuery({
   //   queryKey: [`search`, media, params],
   //   queryFn: () =>
   //     tmdbApi.search<Movie | TV>(media, params.search, { page: params.page }),
@@ -126,7 +127,7 @@ const SearchBar = (props: Props) => {
             }`}
           >
             <ul className="flex flex-col py-2 gap-2 px-4 ">
-              {isLoading && (
+              {isInitialLoading && (
                 <li className="flex px-3 text-gray-500 font-semibold font-sans gap-x-3">
                   <div
                     className="w-6 h-6 rounded-full animate-spin
@@ -137,7 +138,7 @@ const SearchBar = (props: Props) => {
               )}
 
               {!isFetched &&
-                !isLoading &&
+                !isInitialLoading &&
                 (!data || data.data.results.length <= 0) && (
                   <li className="text-gray-500 hover:text-red-600 font-normal font-sans px-3">
                     Here is your result.
@@ -156,7 +157,21 @@ const SearchBar = (props: Props) => {
               )}
 
               {data?.data.results.slice(0, 6).map((movie: any) => (
-                <Link key={movie.id} href={""}>
+                <Link
+                  key={movie.id}
+                  href={`${urlMap[media]}/${
+                    encodeURIComponent(
+                      (media === "movie"
+                        ? movie.title || movie.name
+                        : movie.name
+                      )?.toLowerCase()
+                    ).replace(/%20/g, "-") || ""
+                  }/${movie.id}`}
+                  onClick={() => {
+                    setQuery("");
+                    setOpenSearch(false);
+                  }}
+                >
                   <li className="group  rounded-md border hover:shadow-md hover:scale-105 duration-200 z-[2]">
                     <div className="flex w-full">
                       <Image
@@ -165,6 +180,8 @@ const SearchBar = (props: Props) => {
                             ? originalImage(movie.poster_path)
                             : "/img/placeholder.jpg"
                         }
+                        placeholder="blur"
+                        blurDataURL="/img/placeholder.jpg"
                         alt={"Poster: " + movie.title}
                         width={80}
                         height={80}
@@ -190,12 +207,6 @@ const SearchBar = (props: Props) => {
                   </li>
                 </Link>
               ))}
-
-              {/* <Link href={""}>
-                <li className="text-gray-500 hover:text-red-600 font-normal font-sans px-3">
-                  Your result here
-                </li>
-              </Link> */}
             </ul>
           </div>
         </div>

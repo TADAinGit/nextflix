@@ -2,7 +2,7 @@
 import React from "react";
 import tmdbApi, { TmdbMediaType } from "@/configs/tmdb/tmdb-api";
 import ListHorizontal from "./ListHorizontal";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { Movie } from "@/types/movie";
 import Card from "../Card/MovieCard";
@@ -35,7 +35,7 @@ const ListMovies2023 = (props: Props) => {
             <Card data={movie} size="normal" mediaType={"movie"} />
           </div>
         ))}
-        {latestMovieQuery.isLoading &&
+        {latestMovieQuery.isInitialLoading &&
           Array(10)
             .fill(0)
             .map((_, index) => (

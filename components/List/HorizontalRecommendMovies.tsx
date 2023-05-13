@@ -2,20 +2,26 @@ import tmdbApi from "@/configs/tmdb/tmdb-api";
 import { Movie } from "@/types/movie";
 import Link from "next/link";
 import React from "react";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import ListHorizontal from "./ListHorizontal";
 
 type Props = {
   "movie-id": number;
+  "media-type": "movie" | "tv";
 };
 
 const HorizontalRecommendMovies = (props: Props) => {
   const recommendQuery = useQuery({
     queryKey: ["recommend-movies"],
     queryFn: () =>
-      tmdbApi.getRecommendations<Movie>("movie", props["movie-id"], {
-        page: 1,
-      }),
+      tmdbApi.getRecommendations<Movie>(
+        props["media-type"],
+        props["movie-id"],
+        {
+          page: 1,
+        }
+      ),
+    enabled: props["movie-id"] !== undefined,
   });
 
   return (
@@ -35,12 +41,12 @@ const HorizontalRecommendMovies = (props: Props) => {
       </div>
       {recommendQuery.data && (
         <ListHorizontal
-          mediaType="movie"
+          mediaType={props["media-type"]}
           className="pb-8 pt-6"
           data={recommendQuery.data?.data.results.slice(0, 10)}
         />
       )}
-      {recommendQuery.isLoading && (
+      {recommendQuery.isInitialLoading && (
         <ListHorizontal
           mediaType="all"
           className="pb-8 pt-6"

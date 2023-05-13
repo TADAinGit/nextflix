@@ -2,7 +2,7 @@
 import React from "react";
 import tmdbApi, { TmdbMediaType } from "@/configs/tmdb/tmdb-api";
 import ListHorizontal from "./ListHorizontal";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 
 type Props = {};
@@ -35,7 +35,7 @@ const HorizontalTrendingMovies = (props: Props) => {
           data={trendingQuery.data?.data.results.slice(0, 10)}
         />
       )}
-      {trendingQuery.isLoading && (
+      {trendingQuery.isInitialLoading && (
         <ListHorizontal
           mediaType="all"
           className="pb-8 pt-6"

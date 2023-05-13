@@ -1,7 +1,7 @@
 "use client";
 import tmdbApi, { TmdbMediaType } from "@/configs/tmdb/tmdb-api";
 import React, { useEffect } from "react";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import SwiperCore, { Autoplay, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SkeletonHeroSlice from "../Skeleton/HeroSlice.skeleton";
@@ -60,7 +60,7 @@ const HeroSlide = ({}: Props) => {
         // onSlideChange={() => console.log("slide change")}
         // onSwiper={(swiper) => console.log(swiper)}
       >
-        {trendingQuery.isLoading && (
+        {trendingQuery.isInitialLoading && (
           <SwiperSlide>
             <SkeletonHeroSlice />
           </SwiperSlide>

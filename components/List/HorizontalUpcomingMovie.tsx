@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import ListHorizontal from "./ListHorizontal";
 import Link from "next/link";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import tmdbApi from "@/configs/tmdb/tmdb-api";
 import { Movie, TV, TrendingVideo } from "@/types/movie";
 
@@ -36,7 +36,7 @@ const HorizontalUpcomingMovie = (props: Props) => {
           data={trendingQuery.data?.data.results.slice(0, 10)}
         />
       )}
-      {trendingQuery.isLoading && (
+      {trendingQuery.isInitialLoading && (
         <ListHorizontal
           mediaType="all"
           className="pb-8 pt-6"
