@@ -64,6 +64,10 @@ const tmdbApi = {
     const url = `${media_type}/${id}/videos`;
     return AxiosInstance.get<T>(url);
   },
+  getReview: (media_type: TmdbMediaType, id: number, params?: any) => {
+    const url = `${media_type}/${id}/reviews`;
+    return AxiosInstance.get(url, { params });
+  },
 };
 
 export default tmdbApi;
